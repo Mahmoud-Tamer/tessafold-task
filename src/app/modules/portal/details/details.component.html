@@ -1,0 +1,20 @@
+<div class="body">
+  <div style="display: flex">
+    <div style="width: 100px; flex: none">
+      <button (click)="goBack()" nz-button>back</button>
+    </div>
+    <div style="flex: auto">
+      <nz-descriptions nzTitle="Todo Info">
+        <nz-descriptions-item nzTitle="User Id">{{
+          todoDetails?.userId
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Is Completed">{{
+          todoDetails?.completed
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Title">{{
+          todoDetails?.title
+        }}</nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+  </div>
+</div>

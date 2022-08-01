@@ -1,0 +1,38 @@
+<div class="body">
+  <div style="padding: 1rem 0">
+    Number of Records: {{ ($listOfData | async)?.length }}
+  </div>
+
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <input
+      (input)="search($event)"
+      type="text"
+      nz-input
+      placeholder="input search text"
+    />
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <i nz-icon nzType="search"></i>
+  </ng-template>
+
+  <nz-table>
+    <thead>
+      <tr>
+        <th>User Id</th>
+        <th>Title</th>
+        <th>Completed</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of $listOfData | async">
+        <td>{{ data.userId }}</td>
+        <td>{{ data.title }}</td>
+        <td>{{ data.completed }}</td>
+        <td>
+          <a (click)="goToDetails(data.id)">Details</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
