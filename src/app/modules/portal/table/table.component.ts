@@ -38,7 +38,6 @@ export class TableComponent {
         todos.filter(
           (todo) =>
             searchTerm === '' ||
-            todo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             todo.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
       )
