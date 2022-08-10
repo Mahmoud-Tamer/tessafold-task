@@ -47,11 +47,4 @@ export class TableComponent {
   goToDetails(todoId: string) {
     this.router.navigate([`portal/details/${todoId}`]);
   }
-
-  getTotalOfTodos() {
-    this.$listOfData.pipe(
-      tap((x) => console.log(x.length)),
-      shareReplay(1)
-    );
-  }
 }
