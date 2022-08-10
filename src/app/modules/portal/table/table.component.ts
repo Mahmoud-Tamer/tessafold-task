@@ -14,7 +14,6 @@ import { FormControl } from '@angular/forms';
 export class TableComponent {
   $listOfData!: Observable<Todo[]>;
   $filteredTodos!: Observable<Todo[]>;
-  $todosNumber!: Observable<number>;
   public searchField!: FormControl;
 
   constructor(private todoService: TodoService, private router: Router) {}
