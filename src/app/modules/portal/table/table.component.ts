@@ -17,8 +17,6 @@ export class TableComponent {
   $todosNumber!: Observable<number>;
   public searchField!: FormControl;
 
-  filterTimeOut: any;
-
   constructor(private todoService: TodoService, private router: Router) {}
 
   ngOnInit() {
