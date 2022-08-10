@@ -2,7 +2,7 @@ import { TodoService } from '../../../core/services/todo.service';
 import { Component } from '@angular/core';
 import { Todo } from 'src/app/core/interfaces/todo.model';
 import { combineLatest, Observable } from 'rxjs';
-import { map, tap, count, take, shareReplay, startWith } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
