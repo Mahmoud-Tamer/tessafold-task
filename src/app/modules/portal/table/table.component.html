@@ -1,11 +1,11 @@
 <div class="body">
   <div style="padding: 1rem 0">
-    Number of Records: {{ ($listOfData | async)?.length }}
+    Number of Records: {{ ($filteredTodos | async)?.length }}
   </div>
 
   <nz-input-group [nzSuffix]="suffixIconSearch">
     <input
-      (input)="search($event)"
+      [formControl]="searchField"
       type="text"
       nz-input
       placeholder="input search text"
@@ -25,7 +25,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of $listOfData | async">
+      <tr *ngFor="let data of $filteredTodos | async">
         <td>{{ data.userId }}</td>
         <td>{{ data.title }}</td>
         <td>{{ data.completed }}</td>

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Todo } from '../interfaces/todo.model';
 
 import { environment } from '../../../environments/environment';

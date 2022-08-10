@@ -8,11 +8,13 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [TableComponent, DetailsComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     PortalRoutingModule,
     NzTableModule,
     NzInputModule,

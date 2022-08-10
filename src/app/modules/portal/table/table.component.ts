@@ -1,9 +1,10 @@
 import { TodoService } from '../../../core/services/todo.service';
 import { Component } from '@angular/core';
 import { Todo } from 'src/app/core/interfaces/todo.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
+import { map, tap, count, take, shareReplay, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-table',
@@ -12,7 +13,9 @@ import { Router } from '@angular/router';
 })
 export class TableComponent {
   $listOfData!: Observable<Todo[]>;
-  $allData!: Observable<Todo[]>;
+  $filteredTodos!: Observable<Todo[]>;
+  $todosNumber!: Observable<number>;
+  public searchField!: FormControl;
 
   filterTimeOut: any;
 
@@ -20,38 +23,39 @@ export class TableComponent {
 
   ngOnInit() {
     this.getAllTodoListData();
+    this.searchField = new FormControl('');
+    this.filterTodoList();
   }
 
   getAllTodoListData(): void {
     this.$listOfData = this.todoService.getTodoItems();
-    this.$allData = this.$listOfData;
   }
 
-  search(event: any) {
-    if (this.filterTimeOut) {
-      clearTimeout(this.filterTimeOut);
-    }
+  filterTodoList() {
+    const $searchTerm = this.searchField.valueChanges.pipe(
+      startWith(this.searchField.value)
+    );
 
-    this.filterTimeOut = setTimeout(() => {
-      this.$listOfData = this.filterListOfData(
-        this.$allData,
-        event.target.value
-      );
-    }, 250);
-  }
-
-  filterListOfData(
-    listOfData: Observable<Todo[]>,
-    keyword: string
-  ): Observable<Todo[]> {
-    return listOfData.pipe(
-      map((todos: Todo[]) =>
-        todos.filter((todo: Todo) => todo.title.includes(keyword))
+    this.$filteredTodos = combineLatest([this.$listOfData, $searchTerm]).pipe(
+      map(([todos, searchTerm]) =>
+        todos.filter(
+          (todo) =>
+            searchTerm === '' ||
+            todo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
       )
     );
   }
 
   goToDetails(todoId: string) {
     this.router.navigate([`portal/details/${todoId}`]);
+  }
+
+  getTotalOfTodos() {
+    this.$listOfData.pipe(
+      tap((x) => console.log(x.length)),
+      shareReplay(1)
+    );
   }
 }
