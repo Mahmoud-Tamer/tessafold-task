@@ -15,6 +15,7 @@ export class TableComponent {
   $listOfData!: Observable<Todo[]>;
   $filteredTodos!: Observable<Todo[]>;
   public searchField!: FormControl;
+  todosListLength: number = 0;
 
   constructor(private todoService: TodoService, private router: Router) {}
 
@@ -34,13 +35,15 @@ export class TableComponent {
     );
 
     this.$filteredTodos = combineLatest([this.$listOfData, $searchTerm]).pipe(
-      map(([todos, searchTerm]) =>
-        todos.filter(
+      map(([todos, searchTerm]) => {
+        const filteredTodos = todos.filter(
           (todo) =>
             searchTerm === '' ||
             todo.title.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      )
+        );
+        this.todosListLength = filteredTodos?.length || 0;
+        return filteredTodos;
+      })
     );
   }
 

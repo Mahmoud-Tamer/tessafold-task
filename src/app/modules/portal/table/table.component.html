@@ -1,7 +1,5 @@
 <div class="body">
-  <div style="padding: 1rem 0">
-    Number of Records: {{ ($filteredTodos | async)?.length }}
-  </div>
+  <div style="padding: 1rem 0">Number of Records: {{ todosListLength }}</div>
 
   <nz-input-group [nzSuffix]="suffixIconSearch">
     <input
